@@ -20,38 +20,63 @@ ListGen = []
 ListaHomer = []
 ListaLisa = []
 
-
+contador_palabras = {} # Inicializamos el diccionario que cuenta las palabras
 while True :
-  URL = "https://thesimpsonsquoteapi.glitch.me/quotes"
-  data = requests.get(url = URL)
-  quote = data.json()
+    URL = "https://thesimpsonsquoteapi.glitch.me/quotes"
+    
+    data = requests.get(url = URL)
+    quote = data.json()
+
+  # Cogemos la quote y el personaje del JSON recibido y la guardamos en info_general
+    frase = quote[0]['quote']
+    personaje = quote[0]['character']
+
+    words = frase.split() #Sparamos str en lista
+#Conteo de palabras
+    #Vamos añadiendo las palabras que hemos encontrado al diccionario por medio del bucle
+    for word in words:
+      value = 0
+
+      if word not in contador_palabras:
+        contador_palabras[word] = value
+        
+
+      value = words.count(word)
+      contador_palabras[word] += value
+
+    info_general = [personaje, frase]
+
+# Creamos fichero de texto donde vamos almacenando la cuenta de palabras
+    with open ('/Users/javier/Documents/GitHub/Entregable1/Lisa/CuentaPalabras.txt', 'w') as cuentapalabras:
+      for clave, valor in contador_palabras.items():
+        cuentapalabras.write(f"\n{clave}: {valor}")
 
 
-  personaje: str = quote[0]['character']
-  frase: str = quote[0]['quote']
-  URL_imagen:str = quote[0]['image']
+    personaje: str = quote[0]['character']
+    frase: str = quote[0]['quote']
+    URL_imagen:str = quote[0]['image']
 #DESCARGA DE LA IMAGEN
-  imagen_local = f"Lisa/{personaje}.png" 
-  imagen = requests.get(URL_imagen).content
+    imagen_local = f"Lisa/{personaje}.png" 
+    imagen = requests.get(URL_imagen).content
   
   
   
 
-  if personaje == 'Homer Simpson':
+    if personaje == 'Homer Simpson':
 
-    ListGen.append((personaje,frase))
+        ListGen.append((personaje,frase))
       
-    ListaHomer.append((personaje,frase))
+        ListaHomer.append((personaje,frase))
    
-  elif personaje == 'Lisa Simpson':
+    elif personaje == 'Lisa Simpson':
 
-    ListGen.append((personaje,frase))
+        ListGen.append((personaje,frase))
       
-    ListaLisa.append((personaje,frase))
+        ListaLisa.append((personaje,frase))
 
    
-  ListGen.append((personaje,frase))
-  '''
+    ListGen.append((personaje,frase))
+    '''
   my_dict2 = {"frase": frase, "nombre": personaje}
   with open('/Users/javier/Documents/GitHub/Entregable1/Lisa/general.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
     a = csv.DictWriter(g, my_dict2.keys())
@@ -69,7 +94,7 @@ while True :
   
     
     
-  try:
+    try:
         os.mkdir(f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}")
         imagen_local = f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.png" 
 
@@ -97,14 +122,16 @@ while True :
 
         with open(imagen_local, 'wb') as handler:
             handler.write(imagen) 
-            
-  except OSError as e:
+
+    except OSError as e:
         if e.errno != errno.EEXIST:
             raise
     
+
+    
   
 
-  time.sleep(0)
+    time.sleep(0)
 
 
 
