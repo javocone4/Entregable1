@@ -76,23 +76,7 @@ while True :
 
    
     ListGen.append((personaje,frase))
-    '''
-  my_dict2 = {"frase": frase, "nombre": personaje}
-  with open('/Users/javier/Documents/GitHub/Entregable1/Lisa/general.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
-    a = csv.DictWriter(g, my_dict2.keys())
-    a.writerow(my_dict2)
-    
-  if personaje == 'Lisa Simpson':
-    my_dict3 = {"frase": frase, "nombre": personaje}
-    with open('/Users/javier/Documents/GitHub/Entregable1/Lisa/lisa.csv', 'a') as h:  # You will need 'wb' mode in Python 2.x
-      a = csv.DictWriter(h, my_dict3.keys())
-      a.writerow(my_dict3)
-    
-    
-    '''
-
-  
-    
+   
     
     try:
         os.mkdir(f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}")
