@@ -10,9 +10,13 @@ Entregable 1.
 """
 import csv
 import requests
+
 import time
 import os
 import errno
+
+import pandas as pd
+import matplotlib as plt
 
 ListGen = []
 ListaHomer = []
@@ -56,25 +60,6 @@ while True :
 #DESCARGA DE LA IMAGEN
     imagen_local = f"Lisa/{personaje}.png" 
     imagen = requests.get(URL_imagen).content
-  
-  
-  
-
-    if personaje == 'Homer Simpson':
-
-        ListGen.append((personaje,frase))
-      
-        ListaHomer.append((personaje,frase))
-   
-    elif personaje == 'Lisa Simpson':
-
-        ListGen.append((personaje,frase))
-      
-        ListaLisa.append((personaje,frase))
-
-   
-    ListGen.append((personaje,frase))
-   
     
     try:
         os.mkdir(f"/Users/javier/Documents/GitHub/Entregable1/Bart/{personaje}")
@@ -104,6 +89,8 @@ while True :
 
         with open(imagen_local, 'wb') as handler:
             handler.write(imagen) 
+
+        woorkbook1= "CuentaPalabras.txt"
 
     except OSError as e:
         if e.errno != errno.EEXIST:
