@@ -6,9 +6,6 @@ import string
 import os
 import errno
 
-ListGen = []
-ListaHomer = []
-ListaLisa = []
 contador_palabras = {} # Inicializamos el diccionario que cuenta las palabras
 while True :
     URL = "https://thesimpsonsquoteapi.glitch.me/quotes"
@@ -42,20 +39,6 @@ while True :
     
     imagen = requests.get(URL_imagen).content
   
-    if personaje == 'Homer Simpson':
-
-        ListGen.append((personaje,frase))
-      
-        ListaHomer.append((personaje,frase))
-   
-    elif personaje == 'Lisa Simpson':
-
-        ListGen.append((personaje,frase))
-      
-        ListaLisa.append((personaje,frase))
-
-    ListGen.append((personaje,frase))
-    
     try:
         os.mkdir(f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}")
         imagen_local = f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.png" 
@@ -86,7 +69,7 @@ while True :
         if e.errno != errno.EEXIST:
             raise
     
-    time.sleep(0)
+    time.sleep(30)
 
 
 
