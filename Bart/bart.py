@@ -10,9 +10,7 @@ Entregable 1.
 """
 import csv
 import requests
-import json
 import time
-import string
 import os
 import errno
 
@@ -111,10 +109,6 @@ while True :
         if e.errno != errno.EEXIST:
             raise
     
-
-    
-  
-
     time.sleep(0)
 
 
