@@ -38,29 +38,15 @@ while True :
 #DESCARGA DE LA IMAGEN
     
     imagen = requests.get(URL_imagen).content
+
+    my_dict2 = {"frase": frase, "nombre": personaje}
+    with open('/Users/javier/Documents/GitHub/Entregable1/Lisa/general.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
+            a = csv.DictWriter(g, my_dict2.keys())
+            a.writerow(my_dict2)
   
     try:
         os.mkdir(f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}")
         imagen_local = f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.png" 
-
-
-        if personaje == 'Homer Simpson':
-            my_dict = {"frase": frase, "nombre": personaje}
-            with open(f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.csv" , 'a') as f:  # You will need 'wb' mode in Python 2.x
-                a = csv.DictWriter(f, my_dict.keys())
-                a.writerow(my_dict)
-
-        elif personaje == 'Lisa Simpson':
-            my_dict3 = {"frase": frase, "nombre": personaje}
-            with open(f'/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.csv', 'a') as h:  # You will need 'wb' mode in Python 2.x
-                a = csv.DictWriter(h, my_dict3.keys())
-                a.writerow(my_dict3)
-
-        my_dict2 = {"frase": frase, "nombre": personaje}
-        with open('/Users/javier/Documents/GitHub/Entregable1/Lisa/general.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
-            a = csv.DictWriter(g, my_dict2.keys())
-            a.writerow(my_dict2)
-
 
         with open(imagen_local, 'wb') as handler:
             handler.write(imagen) 
@@ -68,8 +54,19 @@ while True :
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
+    if personaje == 'Homer Simpson':
+            my_dict = {"frase": frase, "nombre": personaje}
+            with open(f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.csv" , 'a') as f:  # You will need 'wb' mode in Python 2.x
+                a = csv.DictWriter(f, my_dict.keys())
+                a.writerow(my_dict)
+
+    elif personaje == 'Lisa Simpson':
+            my_dict3 = {"frase": frase, "nombre": personaje}
+            with open(f'/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.csv', 'a') as h:  # You will need 'wb' mode in Python 2.x
+                a = csv.DictWriter(h, my_dict3.keys())
+                a.writerow(my_dict3)
     
-    time.sleep(30)
+    time.sleep(0)
 
 
 
