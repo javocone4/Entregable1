@@ -10,18 +10,20 @@ Entregable 1.
 """
 import csv
 import requests
-
+import string
 import time
 import os
 import errno
+import matplotlib.pyplot as plt
 
-import pandas as pd
-import matplotlib as plt
+
 
 ListGen = []
 ListaHomer = []
 ListaLisa = []
-
+names = []
+marks = []
+iteraciones = 0
 contador_palabras = {} # Inicializamos el diccionario que cuenta las palabras
 while True :
     URL = "https://thesimpsonsquoteapi.glitch.me/quotes"
@@ -37,8 +39,8 @@ while True :
 #Conteo de palabras
     #Vamos añadiendo las palabras que hemos encontrado al diccionario por medio del bucle
     for word in words:
-      value = 0
-
+      value = 1
+      word = word.translate(str.maketrans('', '', string.punctuation))
       if word not in contador_palabras:
         contador_palabras[word] = value
         
@@ -51,53 +53,65 @@ while True :
 # Creamos fichero de texto donde vamos almacenando la cuenta de palabras
     with open ('/Users/javier/Documents/GitHub/Entregable1/Bart/CuentaPalabras.txt', 'w') as cuentapalabras:
       for clave, valor in contador_palabras.items():
-        cuentapalabras.write(f"\n{clave}: {valor}")
+        if valor > 5:
+            cuentapalabras.write(f"{clave} {valor}\n")
+
+    
 
 
     personaje: str = quote[0]['character']
     frase: str = quote[0]['quote']
     URL_imagen:str = quote[0]['image']
 #DESCARGA DE LA IMAGEN
-    imagen_local = f"Lisa/{personaje}.png" 
+    imagen_local = f"Bart/{personaje}.png" 
     imagen = requests.get(URL_imagen).content
+
+    my_dict2 = {"frase": frase, "nombre": personaje}
+    with open('/Users/javier/Documents/GitHub/Entregable1/Bart/general.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
+            a = csv.DictWriter(g, my_dict2.keys())
+            a.writerow(my_dict2)
+    my_dict4 = {"Carpeta": personaje, "imagen": URL_imagen}
+    with open('/Users/javier/Documents/GitHub/Entregable1/Bart/Listado.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
+            a = csv.DictWriter(g, my_dict4.keys())
+            a.writerow(my_dict4)
     
+
     try:
         os.mkdir(f"/Users/javier/Documents/GitHub/Entregable1/Bart/{personaje}")
         imagen_local = f"/Users/javier/Documents/GitHub/Entregable1/Bart/{personaje}/{personaje}.png" 
 
-
-        if personaje == 'Homer Simpson':
+        with open(imagen_local, 'wb') as handler:
+            handler.write(imagen) 
+    
+        
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+    if personaje == 'Homer Simpson':
             my_dict = {"frase": frase, "nombre": personaje}
             with open(f"/Users/javier/Documents/GitHub/Entregable1/Bart/{personaje}/{personaje}.csv" , 'a') as f:  # You will need 'wb' mode in Python 2.x
                 a = csv.DictWriter(f, my_dict.keys())
                 a.writerow(my_dict)
-
-
-        elif personaje == 'Lisa Simpson':
+    elif personaje == 'Lisa Simpson':
             my_dict3 = {"frase": frase, "nombre": personaje}
             with open(f'/Users/javier/Documents/GitHub/Entregable1/Bart/{personaje}/{personaje}.csv', 'a') as h:  # You will need 'wb' mode in Python 2.x
                 a = csv.DictWriter(h, my_dict3.keys())
                 a.writerow(my_dict3)
-
-                
-        else:
-            my_dict2 = {"frase": frase, "nombre": personaje}
-            with open('/Users/javier/Documents/GitHub/Entregable1/Bart/general.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
-                a = csv.DictWriter(g, my_dict2.keys())
-                a.writerow(my_dict2)
-
-
-        with open(imagen_local, 'wb') as handler:
-            handler.write(imagen) 
-
-        woorkbook1= "CuentaPalabras.txt"
-
-    except OSError as e:
-        if e.errno != errno.EEXIST:
-            raise
-    
-    time.sleep(0)
-
+    if iteraciones == 10:
+        if os.stat('CuentaPalabras.txt').st_size != 0 :
+            f = open('CuentaPalabras.txt','r')
+            for row in f:
+                row = row.split(' ')
+                names.append(row[0])
+                marks.append(int(row[1]))
+            plt.bar(names, marks, color = 'g', label = 'File Data')
+            plt.xlabel('Palabras', fontsize = 12)
+            plt.ylabel('Numero de veces', fontsize = 12)
+            plt.title('Palabras que se repiten mas de 5 veces en 10 iteraciones.', fontsize = 20)
+            plt.legend()
+            plt.show()
+    iteraciones += 1
+    time.sleep(30)
 
 
   
