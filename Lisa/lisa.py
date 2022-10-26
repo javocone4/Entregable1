@@ -28,7 +28,7 @@ while True :
 
     info_general = [personaje, frase]
 # Creamos fichero de texto donde vamos almacenando la cuenta de palabras
-    with open ('/Users/javier/Documents/GitHub/Entregable1/Lisa/CuentaPalabras.txt', 'w') as cuentapalabras:
+    with open ('CuentaPalabras.txt', 'w') as cuentapalabras:
       for clave, valor in contador_palabras.items():
         cuentapalabras.write(f"\n{clave}: {valor}")
 
@@ -40,13 +40,13 @@ while True :
     imagen = requests.get(URL_imagen).content
 
     my_dict2 = {"frase": frase, "nombre": personaje}
-    with open('/Users/javier/Documents/GitHub/Entregable1/Lisa/general.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
+    with open('general.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
             a = csv.DictWriter(g, my_dict2.keys())
             a.writerow(my_dict2)
   
     try:
-        os.mkdir(f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}")
-        imagen_local = f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.png" 
+        os.mkdir(f"{personaje}")
+        imagen_local = f"{personaje}/{personaje}.png" 
 
         with open(imagen_local, 'wb') as handler:
             handler.write(imagen) 
@@ -56,17 +56,17 @@ while True :
             raise
     if personaje == 'Homer Simpson':
             my_dict = {"frase": frase, "nombre": personaje}
-            with open(f"/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.csv" , 'a') as f:  # You will need 'wb' mode in Python 2.x
+            with open(f"{personaje}/{personaje}.csv" , 'a') as f:  # You will need 'wb' mode in Python 2.x
                 a = csv.DictWriter(f, my_dict.keys())
                 a.writerow(my_dict)
 
     elif personaje == 'Lisa Simpson':
             my_dict3 = {"frase": frase, "nombre": personaje}
-            with open(f'/Users/javier/Documents/GitHub/Entregable1/Lisa/{personaje}/{personaje}.csv', 'a') as h:  # You will need 'wb' mode in Python 2.x
+            with open(f'{personaje}/{personaje}.csv', 'a') as h:  # You will need 'wb' mode in Python 2.x
                 a = csv.DictWriter(h, my_dict3.keys())
                 a.writerow(my_dict3)
     
-    time.sleep(0)
+    time.sleep(30)
 
 
 
