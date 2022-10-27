@@ -15,7 +15,11 @@ services:
           NB_GID: 1011
           CHOWN_HOME: 'yes'
           CHOWN_HOME_OPTS: -R
-    lisa:
-        image: 1884ed3ea289
-        build:   "/Users/javier/Documents/GitHub/Entregable1/Lisa/Dockerfile"
-        volumes: -/Users/javier/Documents/Edem/Entregable0:/app/
+          
+    #lisa:
+        #image: 1884ed3ea289
+       # build:   "/Users/javier/Documents/GitHub/Entregable1/Lisa/Dockerfile"
+        #volumes: - /Users/javier/Documents/Edem/Entregable0:/app/
+
+#No he conseguido conectar los dos volúmenes, es el único paso que ha faltado por hacer, el codigo para mostrar graficas y 
+#listas de imagenes con carpetas esta hecho en el jupyter.
