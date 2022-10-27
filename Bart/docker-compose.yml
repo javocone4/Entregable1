@@ -15,4 +15,7 @@ services:
           NB_GID: 1011
           CHOWN_HOME: 'yes'
           CHOWN_HOME_OPTS: -R
-        
+    lisa:
+        image: 1884ed3ea289
+        build:   "/Users/javier/Documents/GitHub/Entregable1/Lisa/Dockerfile"
+        volumes: -/Users/javier/Documents/Edem/Entregable0:/app/
