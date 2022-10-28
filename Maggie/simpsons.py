@@ -25,24 +25,6 @@ while True :
   personaje: str = quote[0]['character']
   frase: str = quote[0]['quote']
 
-  if personaje == 'Homer Simpson':
-
-    ListGen.append((personaje,frase))
-      
-    ListaHomer.append((personaje,frase))
-   
-      
-      
-      
-  elif personaje == 'Lisa Simpson':
-
-    ListGen.append((personaje,frase))
-      
-    ListaLisa.append((personaje,frase))
-
-  ListGen.append((personaje,frase))
-
-
   my_dict2 = {"frase": frase, "nombre": personaje}
   with open('General/general.csv', 'a') as g:  # You will need 'wb' mode in Python 2.x
     a = csv.DictWriter(g, my_dict2.keys())
